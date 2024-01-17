@@ -14,64 +14,24 @@ const taskListUrl = "/web/point_task_list_auth"
 const doTaskUrl = "/web/point_task_do_auth"
 
 // 签到
-sign()
+// sign()
 
 // 获取任务列表
 getTaskList()
 
 
 function sign() {
- const cookie = JSON.parse(signheaderVal).token
+ const cookie = JSON.parse(signheaderVal).Cookie
  if (!cookie) {
    senku.msg(`cookie已失效,请重新获取`)
    senku.done()
  }
   const url = { url: signurlVal, headers: JSON.parse(signheaderVal), body: signBodyVal }
-  senku.post(url, (error, response, data) => {
+  senku.get(url, (error, response, data) => {
     const result = JSON.parse(data)
-    // const total = result.data['task.revisionSignInGetAward'].total
-    // const ret = result.data['task.revisionSignInGetAward'].ret
-    let subTitle = ``
-    let detail = ``
-    let sec_tk = ``
-    let sec_tkNum = ``
-    let red_packet = ``
-    let red_packetNum = ``
-    let pri_tk = ``
-    let pri_tkNum = ``
-    let integral = ``
-    let integralNum = ``
-    // if (total != 0) {
-    //   const num = result.data['task.revisionSignInGetAward'].awards[0].num
-    //   subTitle = `签到结果: 成功`
-    //   detail = `获得鲜花: ${num}朵,已连续签到:${total}天`
-    // } else if (ret == -11532) {
-    //   subTitle = `签到结果: 成功 (重复签到)`
-    // } else {
-    //   subTitle = `签到结果: 失败`
-    // }
-    if (result.code === 200) {
+    if (result.success) {
       subTitle = `签到结果: 成功`
-      console.log('result.data', result.data);
-      // const awardList = result.data.awardList
-      // awardList.forEach( item => {
-      //   if (item.awardType === 'sec_tk') {
-      //     sec_tk = `商城子通证`
-      //     sec_tkNum = item.awardNum
-      //   } else if (item.awardType === 'red_packet') {
-      //     red_packet = `商城红包`
-      //     red_packetNum = item.awardNum
-      //   } else if (item.awardType === 'pri_tk') {
-      //     pri_tk = `商城主通证`
-      //     pri_tkNum = item.awardNum
-      //   } else {
-      //     integral = `喜豆`
-      //     integralNum = item.awardNum
-      //   }
-      // })
-      // detail= `获得${sec_tk}${sec_tkNum}${red_packet}${parseFloat(parseFloat(red_packetNum / 100).toFixed(2))}${pri_tk}${pri_tkNum}${integral}${parseFloat(parseFloat(integralNum / 100).toFixed(2))}`
-    } else if (result.code === 400 || result.message === '今日已签到') {
-      subTitle = `签到结果: 成功 (重复签到)`
+      detail= `获得${result.data.credits}积分，已连续签到${result.data.signResult}天`
     } else {
       subTitle = `签到结果: 失败` 
     }
@@ -82,13 +42,15 @@ function sign() {
 
 function getTaskList() {
   const url = {
-    url: baseUrl + taskListUrl,
+    // url: baseUrl + taskListUrl,
+    url: 'https://h5access.yangshipin.cn/web/point_task_list_auth',
     headers: JSON.parse(signheaderVal), 
     body: signBodyVal
   }
-  senku.post(url, (error, response, data) => {
+  senku.get(url, (error, response, data) => {
+    console.log('getTaskList1: ', data);
     const result = JSON.parse(data)
-    console.log('result: ', result);
+    console.log('getTaskList2: ', result);
     if (result === 200) {
 
     }
