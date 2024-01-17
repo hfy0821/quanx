@@ -8,6 +8,7 @@ const requrl = $request.url
 //senku.msg(requrl, `获取央视频Cookie: 成功`, ``)
 if ($request && $request.method != 'OPTIONS') {
   const signurlVal = requrl
+  console.log('$request.headers', $request.headers)
   const signheaderVal = JSON.stringify($request.headers)
   if (signurlVal) senku.setdata(signurlVal, signurlKey)
   if (signheaderVal) senku.setdata(signheaderVal, signheaderKey)
