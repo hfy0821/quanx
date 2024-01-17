@@ -5,7 +5,7 @@ const signbodyKey = 'senku_signbody_ysp'
 const senku = init()
 
 const requrl = $request.url
-senku.msg(requrl, `获取央视频Cookie: 成功`, ``)
+//senku.msg(requrl, `获取央视频Cookie: 成功`, ``)
 if ($request && $request.method != 'OPTIONS') {
   const signurlVal = requrl
   const signheaderVal = JSON.stringify($request.headers)
