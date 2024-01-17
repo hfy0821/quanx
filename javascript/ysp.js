@@ -14,13 +14,15 @@ const taskListUrl = "/web/point_task_list_auth"
 const doTaskUrl = "/web/point_task_do_auth"
 
 // 签到
-// sign()
+ sign()
 
 // 获取任务列表
-getTaskList()
+//getTaskList()
 
 
 function sign() {
+ console.log('signheaderVal', signheaderVal)
+ console.log('signBodyVal', signBodyVal)
  const cookie = JSON.parse(signheaderVal).Cookie
  if (!cookie) {
    senku.msg(`cookie已失效,请重新获取`)
